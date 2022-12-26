@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ClientController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,4 +20,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/clients', [ClientsController::class, 'clients']);
+Route::get('/clientes', [ClientController::class, 'clientPage']);
+Route::post('storeClients', [ClientController::class, 'storeClients']);
+Route::get('/clientes/edit/{id}', [ClientController::class, 'editClients'])->name('editClients');
+Route::patch('updateClients/{id}', [ClientController::class, 'updateClients'])->name('updateClients');
+Route::delete('deleteClients/{id}', [ClientController::class, 'deleteClients']);
