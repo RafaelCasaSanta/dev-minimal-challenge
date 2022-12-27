@@ -9,26 +9,30 @@
 @section('conteudo')
     <div class="tablediv">
         <div class="tabela">
-            <table class="table tablereal table-sm table-light" style="width: 100%; ">
+            <table class="table tablereal table-sm table-light" style="width: 100%; border:solid;">
                 <thead class="tabela-header">
                     <tr>
-                        <th scope="col">Nome Completo</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Cidade</th>
-                        <th scope="col">Data De Nascimento</th>
-                        <th scope="col">Sexo</th>
-                        <th scope="col" style="display:flex; justify-content:center;">Ação</th>
+                        <th scope="col" style="border:solid;">Nome Completo</th>
+                        <th scope="col" style="border:solid;">Email</th>
+                        <th scope="col" style="border:solid;">Cidade</th>
+                        <th scope="col" style="border:solid;">Endereço</th>
+                        <th scope="col" style="border:solid;">Data De Nascimento</th>
+                        <th scope="col" style="border:solid;">Sexo</th>
+                        <th scope="col" style="border:solid;">Ação</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($clients as $client)
                         <tr>
-                            <td scope="row">{{ $client['NomeCompleto'] }}</td>
-                            <td scope="row">{{ $client['Email'] }}</td>
-                            <td scope="row">{{ $client['Cidade'] }}</td>
-                            <td scope="row">{{ date('d/m/Y', strtotime($client['DataDeNascimento'])) }}</td>
-                            <td scope="row">{{ $client['Sexo'] }}</td>
-                            <td scope="row">
+                            <td scope="row" style="border:groove;">{{ $client['NomeCompleto'] }}</td>
+                            <td scope="row" style="border:groove;">{{ $client['Email'] }}</td>
+                            <td scope="row" style="border:groove;">{{ $client['Cidade'] }}</td>
+                            <td scope="row" style="border:groove;">{{ $client['Endereco'] }}</td>
+                            <td scope="row" style="border:groove;">
+                                {{ date('d/m/Y', strtotime($client['DataDeNascimento'])) }}
+                            </td>
+                            <td scope="row" style="border:groove;">{{ $client['Sexo'] }}</td>
+                            <td scope="row" style="border:groove;">
                                 <div class="flex d-flex gap-2" style="justify-content: center;">
 
 
@@ -60,7 +64,7 @@
                                     <div class="modal" id="delete-students">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <div class="modal-header modal-cabeca">
+                                                <div class="modal-header modal-head">
                                                     <h5 class="modal-title">Apagar Cadastro de Cliente</h5>
                                                     {{-- <button type="button" class="btn-close" data-bs-dismiss="modal"></button> --}}
                                                 </div>
@@ -71,10 +75,11 @@
                                                         @csrf
                                                         @method('DELETE')
                                                 </div>
-                                                <div class="modal-footer botoes-acao">
+                                                <div class="modal-footer actions-button">
                                                     <button type="button" class="btn btn-danger"
                                                         data-bs-dismiss="modal">Cancelar</button>
-                                                    <button type="submit" class="btn centralizar">Excluir</button>
+                                                    <button type="submit" class="btn"
+                                                        style="background-color:#00aceb; color:#FFFF;">Excluir</button>
                                                 </div>
                                                 </form>
                                             </div>
@@ -90,8 +95,9 @@
             </table>
         </div>
     </div>
-    <div class="container">
-        <button type="button" class="btn  centralizar" data-bs-toggle="modal" data-bs-target="#myModal">Cadastrar
+    <div class="container registration-button">
+        <button type="button" class=" btn cadastrar  centralizar" data-bs-toggle="modal"
+            data-bs-target="#myModal">Cadastrar
             Cliente</button>
         <div class="modal" id="myModal">
             <div class="modal-dialog">
@@ -116,9 +122,13 @@
                                 <input type="string" name="Cidade" class="form-control" required>
                             </div>
                             <div class="mb-3">
+                                <label class="form-label required">Endereço</label>
+                                <input type="string" name="Endereco" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
                                 <label class="form-label required">Data de Nascimento</label>
-                                <input placeholder="dd/mm/aaaa" type="Date" name="DataDeNascimento" class="form-control"
-                                    required>
+                                <input placeholder="dd/mm/aaaa" type="Date" name="DataDeNascimento"
+                                    class="form-control" required>
                             </div>
                             <div class="mb-3">
                                 {{-- <label class="form-label required">Sexo</label>
@@ -132,9 +142,9 @@
                                 </select>
                             </div>
                             <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                                 <button type="submit" class="btn btn-primary">Registrar</button>
 
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                             </div>
                         </form>
                     </div>
@@ -143,6 +153,7 @@
         </div>
     </div>
 @endsection()
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
 </script>
@@ -151,5 +162,40 @@
 </script>
 
 <style>
+    .actions-button {
+        display: flex;
+        justify-content: center !important;
+    }
 
+    .cadastrar {
+        display: flex;
+        justify-content: end;
+        background-color: #00aceb !important;
+        color: #FFFF !important;
+    }
+
+    .edit {
+        background-color: #00aceb !important;
+        color: #FFFF !important;
+    }
+
+    .excluir {
+        background-color: red !important;
+        color: #FFFF !important;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: center !important;
+        color: #FFFF;
+        background-color: #00aceb;
+    }
+
+
+
+
+    .registration-button {
+        display: flex !important;
+        justify-content: center !important;
+    }
 </style>

@@ -30,6 +30,7 @@ class ClientController extends Controller
         $clients->NomeCompleto = $request->NomeCompleto;
         $clients->Email = $request->Email;
         $clients->Cidade = $request->Cidade;
+        $clients->Endereco = $request->Endereco;
         $clients->DataDeNascimento = $request->DataDeNascimento;
         $clients->Sexo = $request->Sexo;
         $clients->save();
@@ -48,6 +49,7 @@ class ClientController extends Controller
             'NomeCompleto' => 'required',
             'Email' => 'required',
             'Cidade' => 'required',
+            'Endereco' => 'required',
             'DataDeNascimento' => 'required',
             'Sexo' => 'required'
         ]);
@@ -56,6 +58,7 @@ class ClientController extends Controller
         $clients->NomeCompleto =  $request['NomeCompleto'];
         $clients->Email = $request['Email'];
         $clients->Cidade = $request['Cidade'];
+        $clients->Cidade = $request['Endereco'];
         $clients->DataDeNascimento = $request['DataDeNascimento'];
         $clients->Sexo = $request['Sexo'];
         $clients->save();
@@ -65,8 +68,8 @@ class ClientController extends Controller
 
     public function deleteClients($id)
     {
-        $clients = Client::findOrFail($id);
-        $clients->delete($id);
+        $clients = Client::where('id', $id)->firstorfail()->delete();
+
         return redirect()->back();
     }
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('NomeCompleto');
             $table->string('Email');
             $table->string('Cidade');
+            $table->string('Endereco');
             $table->string('DataDeNascimento');
             $table->string('Sexo');
             $table->timestamps();
