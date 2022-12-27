@@ -15,15 +15,11 @@ class ClientController extends Controller
     {
         $clients = Client::all();
         return view('client-page', ['clients' => $clients]);
-        // return view('client-page');
     }
 
-    // function clientList()
-    // {
-    //     $clients = Client::all();
-    //     return view('client-page', ['clients' => $clients]);
-    // }
 
+
+    //Função de Gravação de um novo cliente no banco de dados
     public function storeClients(Request $request)
     {
         $clients = new Client;
@@ -37,6 +33,9 @@ class ClientController extends Controller
         return redirect()->back()->with('status', 'Cliente Inserido com sucesso!');
     }
 
+
+
+    //Funções de Editar e Fazer o Upload do novo dado para o cliente
     public function editClients($id)
     {
         $clients = Client::find($id);
@@ -54,7 +53,6 @@ class ClientController extends Controller
             'Sexo' => 'required'
         ]);
         $clients = Client::findOrFail($id);
-        // Getting values from the blade template form
         $clients->NomeCompleto =  $request['NomeCompleto'];
         $clients->Email = $request['Email'];
         $clients->Cidade = $request['Cidade'];
@@ -62,14 +60,15 @@ class ClientController extends Controller
         $clients->DataDeNascimento = $request['DataDeNascimento'];
         $clients->Sexo = $request['Sexo'];
         $clients->save();
-
         return redirect('/clientes');
     }
 
-    public function deleteClients($id)
+    //Função de delete do cliente!
+    //Problema na seleção do usuário que será deletado, ele está sempre buscando o primeiro da lista;
+    public function deleteClients($NomeCompleto)
     {
-        $clients = Client::where('id', $id)->firstorfail()->delete();
-
+        $clients = Client::find($NomeCompleto);
+        $clients->delete();
         return redirect()->back();
     }
 }

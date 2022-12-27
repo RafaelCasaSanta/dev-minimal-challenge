@@ -1,3 +1,4 @@
+{{-- Utilização de um layout para predefinição de partes visuais do sistema --}}
 @extends('layouts.layout')
 
 @section('cabecalho')
